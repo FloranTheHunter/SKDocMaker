@@ -1,0 +1,99 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DocMaker.View"       
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="DocMaker.View.NewRecordPage"
+        mc:Ignorable="d"
+        Title="Записи" Height="600" Width="468.4" WindowStartupLocation="CenterOwner" Closed="Window_Closed" MinWidth="500" WindowStyle="ToolWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" MinHeight="100"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="Добавить новую запись"  Style="{StaticResource ButtonLight}" HorizontalContentAlignment="Center" FontSize="16" Click="Button_Click"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0" Visibility="Visible" HorizontalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch">
+                <StackPanel>
+                    <local:TextBoxWithLabel x:Name="Type" Title="Вид" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="Target" Title="Цель" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="SCategory" Title="Категория проб" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="SGroup" Title="Группа пробы" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="ExamType" Title="Вид исследований" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="Date" Title="Дата поступления" MinWidth="200"/>
+                    <DatePicker Style="{StaticResource DateElement}" Text="Дата поступления"/>
+                    <local:TextBoxWithLabel Title="Наименование образца" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Количество проб" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Масса" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Данные заказчика" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Код образцов" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Направление образцов" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Ответсвенное лицо" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Данные протокола" MinWidth="200"/>
+                </StackPanel>
+            </ScrollViewer>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"  Background="{DynamicResource FourthBrush}"/>
+            <Grid Grid.Column="1" Margin="2, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" MinHeight="150"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="ExamTypeSelection" Text="lol" BorderBrush="{x:Null}" Foreground="Black" Style="{StaticResource ComboBoxFlatStyle}" Margin="10,15">
+                        <ComboBoxItem Content="Патогенные микроорганизмы, в т.ч. сальмонеллы"/>
+                        <ComboBoxItem>Two</ComboBoxItem>
+                        <ComboBoxItem>Three</ComboBoxItem>
+                    </ComboBox>
+
+                    <TextBox x:Name="ExamResultBox" Style="{StaticResource ResourceKey=TextBox1}" Grid.Row="1" Margin="10" Background="{StaticResource PrimaryBrush}" BorderThickness="1" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+
+                    <local:Btn Grid.Column="1" Style="{StaticResource ResourceKey= ImageButton}" Text="Добавить" FontSize="12" Background="Transparent" BorderBrush="Transparent" Orientation="False" Click="Btn_Click"/>
+                </Grid>
+
+                <Border Grid.Row="1" BorderBrush="{StaticResource FourthBrush}" BorderThickness="1">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+                        <StackPanel x:Name="ExamsData">
+                            <local:ExamData ExamPoint="EXAM POINT" Result ="RESUdsfsdfsdfdasssssfsfsfdsLT"/>
+                            <local:ExamData ExamPoint="Exam point" Result ="zxcczcxzc"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" Visibility="Hidden">
+            <UniformGrid >
+                <local:TextBoxWithLabel Title="Вид" MinWidth="150" MinHeight="50"/>
+                <local:TextBoxWithLabel Title="Цель" />
+                <local:TextBoxWithLabel Title="Категория проб" />
+                <local:TextBoxWithLabel Title="Группа пробы" />
+                <local:TextBoxWithLabel Title="Вид исследований" />
+                <local:TextBoxWithLabel Title="Дата поступления" />
+                <local:TextBoxWithLabel Title="Наименование" />
+                <local:TextBoxWithLabel Title="Количество" />
+                <local:TextBoxWithLabel Title="Масса" />
+                <local:TextBoxWithLabel Title="Даные заказчика" />
+                <local:TextBoxWithLabel Title="Код образцов" />
+                <local:TextBoxWithLabel Title="Направление" />
+                <local:TextBoxWithLabel Title="Ответственное лицо" />
+                <local:TextBoxWithLabel Title="Данные протокола" />
+            </UniformGrid>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

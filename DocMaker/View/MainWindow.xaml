@@ -1,0 +1,112 @@
+﻿<Window x:Class="DocMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DocMaker"
+        xmlns:local1="clr-namespace:DocMaker.View"
+        xmlns:localVM="clr-namespace:DocMaker.Logic"
+        xmlns:rg="clr-namespace:unvell.ReoGrid;assembly=unvell.ReoGrid"
+        mc:Ignorable="d"
+        Height="450" Width="800" MinWidth="700" MinHeight="300" Title="Отчеты" WindowStyle="ThreeDBorderWindow" Icon="Resources/rp.ico" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="{DynamicResource PrimaryBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="217"/>
+                <ColumnDefinition Width="156"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,2.8,0" HorizontalAlignment="Left">
+                <local1:Btn Style="{StaticResource ResourceKey= ImageButton}" Width="70" Height="80" Margin="1,0,0,0" Text="Создать" Image="Resources/sv.png" FontSize="13" Background="Transparent" BorderBrush="Transparent" Orientation="False" Click="CreateNew"/>
+                <local1:Btn Style="{StaticResource ResourceKey= ImageButton}" Width="70" Height="80" Margin="1,0,0,0" Text="Открыть" Image="Resources/opn.png" FontSize="13" Background="Transparent" BorderBrush="Transparent" Orientation="False" Click="OpenFile"/>
+                <local1:Btn Style="{StaticResource ResourceKey= ImageButton}" Width="70" Height="80" Margin="1,0,0,0" Text="Добавить" Image="Resources/ad.png" FontSize="13" Background="Transparent" BorderBrush="Transparent" Orientation="False"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18.2,4,0,4" Height="92" Width="122" Grid.Column="1">
+                <local1:Btn Style="{DynamicResource ImageButton}" Width="120" Height="30" Margin="2,0,0,0" Text="Печать" Image="Resources/exl.png" FontSize="14" Background="Transparent" BorderBrush="Transparent" Orientation="True" HorizontalAlignment="Left"/>
+                <local1:Btn Style="{StaticResource  ImageButton}" Width="120" Height="30" Margin="2,0,0,0" Text="Сохранить" Image="Resources/sv.png" FontSize="14" Background="Transparent" BorderBrush="Transparent" Orientation="True" HorizontalAlignment="Left" Click="Save"/>
+                <local1:Btn Style="{StaticResource  ImageButton}" Width="120" Height="30" Margin="2,0,0,0" Text="Удалить все" Image="Resources/ad.png" FontSize="14" Background="Transparent" BorderBrush="Transparent" Orientation="True" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1.2,4,0,4" Height="92" Width="200">
+                <local1:Btn Style="{DynamicResource ImageButton}" Width="150" Height="40" Margin="2,0,0,0" Text="Новая запись" Image="Resources/wrt.png" FontSize="14" Background="Transparent" BorderBrush="Transparent" Orientation="True" HorizontalAlignment="Left" Click="Btn_Click"/>
+                <local1:Btn Style="{DynamicResource ImageButton}" Width="200" Height="40" Margin="2,0,0,0" Text="Новое исследование" Image="Resources/wrt.png" FontSize="14" Background="Transparent" BorderBrush="Transparent" Orientation="True" HorizontalAlignment="Left" Click="Btn1_Click"/>
+            </StackPanel>
+
+            <Rectangle HorizontalAlignment="Right" Width="1" Fill="Black" Margin="0,3,0,3" Grid.Column="0"/>
+            <Rectangle HorizontalAlignment="Right" Width="1" Fill="Black" Margin="0,3,0,3" Grid.Column="1"/>
+            <Rectangle HorizontalAlignment="Right" Width="1" Fill="Black" Margin="0,3,0,3" Grid.Column="2" Visibility="Hidden"/>
+        </Grid>
+
+        <rg:ReoGridControl Grid.Row="2" x:Name="DataGrid" CellsSelectionCursor="Cross">
+            <rg:ReoGridControl.RowHeaderContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Удалить" Click="DeleteItem_Click"/>
+                    <MenuItem Header="Вставить строку сверху" Click="InsertTopItem_Click"/>
+                    <MenuItem Header="Вставить строку снизу" Click="InsertBottomItem_Click"/>
+                </ContextMenu>
+            </rg:ReoGridControl.RowHeaderContextMenu>
+            <rg:ReoGridControl.CellsContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Удалить" Click="DeleteCell_Click"/>
+                    <MenuItem Header="Объединить" Click="MergeItem_Click"/>
+                    <MenuItem Header="Разделить" Click="UnMergeItem_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Выделить" Click="SetBorderItem_Click"/>
+                    <MenuItem Header="Снять выделение" Click="UnSetBorderItem_Click"/>
+                </ContextMenu>
+            </rg:ReoGridControl.CellsContextMenu>
+        </rg:ReoGridControl>
+
+        <TabControl Style="{StaticResource TabControlTemp}" Margin="0,0,-0.4,0" Grid.Row="1" TabStripPlacement="Bottom" Visibility="Hidden" IsEnabled="False">
+            <TabItem Header="Лист 1" Background="{x:Null}">
+
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" Foreground="{x:Null}" >
+                    <ListBox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{DynamicResource ThirdBrush}" >
+                        <local1:Rwdt MinHeight="50" Type="Вид" Target="Цель" Category="Категория" Group="Группа" ExamType="Вид исследования" ExamNum="Номер экспертизы" Date="Дата поступления" 
+                                     SampleName="Наименование образца" SampleCount="Количество проб" SampleWeight="Масса образцов" CustomerData="Данные заказчика" SampleDirectory="Направление образцов"
+                                     Background="{DynamicResource FourthBrush}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        </local1:Rwdt>
+                        <local1:Rwdt MinHeight="50" Type="Вид" Target="Цель" Category="Категория" Group="Группа" ExamType="Вид исследования" Background="{DynamicResource ThirdBrush}"/>
+                        <local1:Rwdt MinHeight="50" Type="Вид" Target="Цель" Category="Категория" Group="Группа" ExamType="Вид исследования" Background="{DynamicResource FourthBrush}"/>
+                        <local1:Rwdt MinHeight="50" Type="Вид" Target="Цель" Category="Категория" Group="Группа" ExamType="Вид исследования" Background="{DynamicResource ThirdBrush}"/>
+                    </ListBox>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Лист 2">
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" Foreground="{x:Null}">
+                    <StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Лист 3">
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" Foreground="{x:Null}">
+                    <StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1" Background="#FFD7D7D7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="White" MinHeight="20" BorderBrush="#FF424242" BorderThickness="1" HorizontalAlignment="Stretch"  Grid.Column="1" Margin="10">
+                <TextBlock x:Name="SelectionDataBox" TextWrapping="Wrap" Text="SampleText" Margin="1, 0"/>
+            </Border>
+            <Border Background="White" MinHeight="20" BorderBrush="#FF424242" BorderThickness="1" HorizontalAlignment="Stretch"  Grid.Column="0" Margin="10">
+                <TextBlock x:Name="SelectionRangeBox" TextWrapping="Wrap" Text="SampleText" Margin="1,0"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

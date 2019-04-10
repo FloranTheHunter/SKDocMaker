@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DocMaker.View.Resources">
+
+    <Style TargetType="TabControl" x:Key="TabControlTemp">
+        <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+        <Setter Property="SnapsToDevicePixels"
+          Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <Grid KeyboardNavigation.TabNavigation="Local">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="35" />
+                        </Grid.RowDefinitions>
+
+                        <TabPanel x:Name="HeaderPanel"
+                    Grid.Row="1"
+                    Panel.ZIndex="1"                    
+                    IsItemsHost="True"
+                    KeyboardNavigation.TabIndex="1"                         
+                    Background="{StaticResource PrimaryBrush}" />
+
+                        <Border x:Name="Border"
+                    Grid.Row="0"
+                    BorderThickness="0,1,0,1"
+                    KeyboardNavigation.TabNavigation="Local"
+                    KeyboardNavigation.DirectionalNavigation="Contained"
+                    KeyboardNavigation.TabIndex="2"
+                    BorderBrush="Black"
+                    Background="#fff">
+
+                            <ContentPresenter x:Name="PART_SelectedContentHost"                              
+                              ContentSource="SelectedContent" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type TabItem}" x:Key="Lol">
+        <Setter Property="OverridesDefaultStyle" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Name="Panel"  BorderThickness="1,0,1,0" BorderBrush="Black" MinWidth="60" MinHeight="30">
+                        <Grid>
+                            <Rectangle HorizontalAlignment="Stretch" x:Name="Separator" VerticalAlignment="Bottom" Fill="{DynamicResource FourthBrush}" Height="2" Visibility="Hidden"/>
+
+                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        ContentSource="Header"                                         
+                                        Margin="10,2"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource ResourceKey= ThirdBrush}" />
+                            <Setter TargetName="Panel" Property="Margin" Value="0,-5,0,0"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="{StaticResource FourthBrush}"/>
+                            <Setter TargetName="Separator" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource ResourceKey= PrimaryBrush}" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsSelected" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource ResourceKey= SecondaryBrush}" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>

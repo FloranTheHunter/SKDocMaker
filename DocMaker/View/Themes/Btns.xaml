@@ -1,0 +1,93 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local1="clr-namespace:DocMaker.View">
+
+
+    <Style TargetType="{x:Type local1:Btn}" x:Key="ImageButton" BasedOn="{StaticResource ResourceKey={x:Type Button}}">
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local1:Btn}">
+                            <Border Name="lol" Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="5">
+                                <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{TemplateBinding Image}" HorizontalAlignment="Center" MinHeight="40"/>
+                                    <TextBlock Text="{TemplateBinding Text}" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Center" Grid.Row="1"/>
+                                </Grid>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="lol" Property="Background" Value="#9aff9a"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Orientation" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local1:Btn}">
+                            <Border Name="lol" Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}">
+
+                                <Grid HorizontalAlignment="Left"
+                                    VerticalAlignment="Center" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{TemplateBinding Image}"  Height="35" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                                    <TextBlock Text="{TemplateBinding Text}" FontSize="{TemplateBinding FontSize}" Grid.Column="1" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="lol" Property="Background" Value="#9aff9a"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+        </Style.Triggers>
+
+
+    </Style>
+
+
+    <Style x:Key="ButtonLight" TargetType="Button" >
+        <Setter Property="Background" Value="{StaticResource FourthBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightGreen"/>
+                <!--<Setter Property="Foreground" Value="White"/>-->
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

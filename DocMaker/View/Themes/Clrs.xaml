@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DocMaker.View.Resources">
+
+
+    <Color x:Key="PrimaryCol">#f1f1f1</Color>
+    <Color x:Key="SecondaryCol">#fafafa</Color>
+    <Color x:Key="ThirdCol">#fff</Color>
+    <Color x:Key="FourthCol">#16a050</Color>
+
+    <SolidColorBrush x:Key ="PrimaryBrush" Color="{StaticResource PrimaryCol}"/>
+    <SolidColorBrush x:Key ="SecondaryBrush" Color="{StaticResource SecondaryCol}"/>
+    <SolidColorBrush x:Key ="ThirdBrush" Color="{StaticResource ThirdCol}"/>
+    <SolidColorBrush x:Key ="FourthBrush" Color="{StaticResource FourthCol}"/>
+    
+</ResourceDictionary>
