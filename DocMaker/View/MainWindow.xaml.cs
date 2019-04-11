@@ -163,40 +163,61 @@ namespace DocMaker
 
             DataGrid.Worksheets[1].MergeRange("E3:E4");
             DataGrid.Worksheets[1].MergeRange("F3:I3");
-
+            DataGrid.Worksheets[1].Cells["E3"].Data = "Итого за январь";
+            DataGrid.Worksheets[1].Cells["F3"].Data = "Февраль";
 
             DataGrid.Worksheets[1].MergeRange("J3:J4");
             DataGrid.Worksheets[1].MergeRange("K3:O3");
-
+            DataGrid.Worksheets[1].Cells["J3"].Data = "Итого за февраль";
+            DataGrid.Worksheets[1].Cells["K3"].Data = "Март";
+            
             DataGrid.Worksheets[1].MergeRange("P3:P4");
             DataGrid.Worksheets[1].MergeRange("Q3:T3");
+            DataGrid.Worksheets[1].Cells["P3"].Data = "Итого за март";
+            DataGrid.Worksheets[1].Cells["Q3"].Data = "Апрель";
 
             DataGrid.Worksheets[1].MergeRange("U3:U4");
             DataGrid.Worksheets[1].MergeRange("V3:Y3");
-
+            DataGrid.Worksheets[1].Cells["U3"].Data = "Итого за апрель";
+            DataGrid.Worksheets[1].Cells["V3"].Data = "Май";
+            
             DataGrid.Worksheets[1].MergeRange("Z3:Z4");
             DataGrid.Worksheets[1].MergeRange("AA3:AE3");
+            DataGrid.Worksheets[1].Cells["Z3"].Data = "Итого за май";
+            DataGrid.Worksheets[1].Cells["AA3"].Data = "Июнь";
 
             DataGrid.Worksheets[1].MergeRange("AF3:AF4");
             DataGrid.Worksheets[1].MergeRange("AG3:AJ3");
-
+            DataGrid.Worksheets[1].Cells["F3"].Data = "Итого за июнь";
+            DataGrid.Worksheets[1].Cells["AG3"].Data = "Июль";            
+            
             DataGrid.Worksheets[1].MergeRange("AK3:AK4");
             DataGrid.Worksheets[1].MergeRange("AL3:AO3");
-
+            DataGrid.Worksheets[1].Cells["AK3"].Data = "Итого за июль";
+            DataGrid.Worksheets[1].Cells["AL3"].Data = "Август";
+            
             DataGrid.Worksheets[1].MergeRange("AP3:AP4");
             DataGrid.Worksheets[1].MergeRange("AQ3:AT3");
-
+            DataGrid.Worksheets[1].Cells["AP3"].Data = "Итого за август";
+            DataGrid.Worksheets[1].Cells["AQ3"].Data = "Сентябрь";
+            
             DataGrid.Worksheets[1].MergeRange("AU3:AU4");
             DataGrid.Worksheets[1].MergeRange("AV3:AY3");
-
+            DataGrid.Worksheets[1].Cells["AU3"].Data = "Итого за сентябрь";
+            DataGrid.Worksheets[1].Cells["AV3"].Data = "Октябрь";
+            
             DataGrid.Worksheets[1].MergeRange("AZ3:AZ4");
             DataGrid.Worksheets[1].MergeRange("BA3:BD3");
-
+            DataGrid.Worksheets[1].Cells["AZ3"].Data = "Итого за октябрь";
+            DataGrid.Worksheets[1].Cells["BA3"].Data = "Ноябрь";
+            
             DataGrid.Worksheets[1].MergeRange("BE3:BE4");
             DataGrid.Worksheets[1].MergeRange("BF3:BI3");
+            DataGrid.Worksheets[1].Cells["BE3"].Data = "Итого за ноябрь";
+            DataGrid.Worksheets[1].Cells["BF3"].Data = "Декабрь";
 
             DataGrid.Worksheets[1].MergeRange("BJ3:BJ4");
-
+            DataGrid.Worksheets[1].Cells["BJ3"].Data = "Итого за Декабрь";            
 
             #endregion
 
