@@ -16,6 +16,7 @@ using DocMaker.View;
 using Microsoft.Win32;
 using unvell.ReoGrid;
 using unvell.ReoGrid.Actions;
+using unvell.ReoGrid.CellTypes;
 
 namespace DocMaker
 {
@@ -99,7 +100,7 @@ namespace DocMaker
             DataGrid.Worksheets[1].RowCount = 1000;
             DataGrid.Worksheets[2].ColumnCount = 15;
             DataGrid.Worksheets[2].RowCount = 20000;
-            DataGrid.Worksheets[3].ColumnCount = 15;
+            DataGrid.Worksheets[3].ColumnCount = 12;
             DataGrid.Worksheets[3].RowCount = 20000;
 
             DataGrid.SheetTabNewButtonVisible = false;
@@ -109,9 +110,15 @@ namespace DocMaker
             namedrange.Data = new object[]
                 { "Вид", "Цель", "Категория проб", "Группа пробы", "Вид исследований", "Номер экспертизы / протокола", "Дата поступления", "Наименование образца(пробы)",
               "Кол - во проб", "Количество образцов(проб) масса" ,"ФИО Заказчика, адрес", "Код образцов(проб)", "Цель исследования(испытаний) и измерений", "Направление образцов(проб)",
-              "Ответственное лицо за испытания", "Результат исследования(испытания) и измерений, дата выдачи протокола испытания", "Номер протокола и дата выдачи", "Подпись", "Примечание", "Форма оплаты", "ФЛ/ЮЛ", "Состояние оплаты"};
+              "Ответственное лицо за испытания", "Результат исследования(испытания) и измерений, дата выдачи протокола испытания", "Номер протокола и дата выдачи", "Подпись", "Примечание", "Форма оплаты", "ФЛ/ЮЛ", "Статус оплаты"};
 
             DataGrid.Worksheets[0].RowHeaders[0].Height = 100;
+
+            DataGrid.Worksheets[0]["C2:C5"] = new object[] { "A", "B", "C", "D", "E" };
+
+            // create built-in column filter
+            var filter = DataGrid.Worksheets[0].CreateColumnFilter(2, 2, 1);
+
             DataGrid.Worksheets[0].ColumnHeaders["G"].Width = 100;
             DataGrid.Worksheets[0].ColumnHeaders["H"].Width = 100;
             DataGrid.Worksheets[0].ColumnHeaders["F"].Width = 150;
@@ -170,7 +177,7 @@ namespace DocMaker
             DataGrid.Worksheets[1].MergeRange("K3:O3");
             DataGrid.Worksheets[1].Cells["J3"].Data = "Итого за февраль";
             DataGrid.Worksheets[1].Cells["K3"].Data = "Март";
-            
+
             DataGrid.Worksheets[1].MergeRange("P3:P4");
             DataGrid.Worksheets[1].MergeRange("Q3:T3");
             DataGrid.Worksheets[1].Cells["P3"].Data = "Итого за март";
@@ -180,7 +187,7 @@ namespace DocMaker
             DataGrid.Worksheets[1].MergeRange("V3:Y3");
             DataGrid.Worksheets[1].Cells["U3"].Data = "Итого за апрель";
             DataGrid.Worksheets[1].Cells["V3"].Data = "Май";
-            
+
             DataGrid.Worksheets[1].MergeRange("Z3:Z4");
             DataGrid.Worksheets[1].MergeRange("AA3:AE3");
             DataGrid.Worksheets[1].Cells["Z3"].Data = "Итого за май";
@@ -189,35 +196,35 @@ namespace DocMaker
             DataGrid.Worksheets[1].MergeRange("AF3:AF4");
             DataGrid.Worksheets[1].MergeRange("AG3:AJ3");
             DataGrid.Worksheets[1].Cells["F3"].Data = "Итого за июнь";
-            DataGrid.Worksheets[1].Cells["AG3"].Data = "Июль";            
-            
+            DataGrid.Worksheets[1].Cells["AG3"].Data = "Июль";
+
             DataGrid.Worksheets[1].MergeRange("AK3:AK4");
             DataGrid.Worksheets[1].MergeRange("AL3:AO3");
             DataGrid.Worksheets[1].Cells["AK3"].Data = "Итого за июль";
             DataGrid.Worksheets[1].Cells["AL3"].Data = "Август";
-            
+
             DataGrid.Worksheets[1].MergeRange("AP3:AP4");
             DataGrid.Worksheets[1].MergeRange("AQ3:AT3");
             DataGrid.Worksheets[1].Cells["AP3"].Data = "Итого за август";
             DataGrid.Worksheets[1].Cells["AQ3"].Data = "Сентябрь";
-            
+
             DataGrid.Worksheets[1].MergeRange("AU3:AU4");
             DataGrid.Worksheets[1].MergeRange("AV3:AY3");
             DataGrid.Worksheets[1].Cells["AU3"].Data = "Итого за сентябрь";
             DataGrid.Worksheets[1].Cells["AV3"].Data = "Октябрь";
-            
+
             DataGrid.Worksheets[1].MergeRange("AZ3:AZ4");
             DataGrid.Worksheets[1].MergeRange("BA3:BD3");
             DataGrid.Worksheets[1].Cells["AZ3"].Data = "Итого за октябрь";
             DataGrid.Worksheets[1].Cells["BA3"].Data = "Ноябрь";
-            
+
             DataGrid.Worksheets[1].MergeRange("BE3:BE4");
             DataGrid.Worksheets[1].MergeRange("BF3:BI3");
             DataGrid.Worksheets[1].Cells["BE3"].Data = "Итого за ноябрь";
             DataGrid.Worksheets[1].Cells["BF3"].Data = "Декабрь";
 
             DataGrid.Worksheets[1].MergeRange("BJ3:BJ4");
-            DataGrid.Worksheets[1].Cells["BJ3"].Data = "Итого за Декабрь";            
+            DataGrid.Worksheets[1].Cells["BJ3"].Data = "Итого за Декабрь";
 
             #endregion
 
@@ -247,10 +254,48 @@ namespace DocMaker
             DataGrid.Worksheets[1].MergeRange("A13:BJ13");
             DataGrid.Worksheets[1].Cells["A13"].Data = $"Общее";
             DataGrid.Worksheets[1].Cells["A13"].Style.Indent = 20;
-            DataGrid.Worksheets[1].Cells["A13"].Style.FontSize = 14;            
+            DataGrid.Worksheets[1].Cells["A13"].Style.FontSize = 14;
             #endregion
-        }
 
+            #region List 3
+            DataGrid.Worksheets["Печать"].MergeRange("A1:B4");
+            DataGrid.Worksheets["Печать"].MergeRange("C1:J1");
+            DataGrid.Worksheets["Печать"].MergeRange("C2:J2");
+            DataGrid.Worksheets["Печать"].MergeRange("C3:J3");
+            DataGrid.Worksheets["Печать"].MergeRange("C4:J4");
+            DataGrid.Worksheets["Печать"].MergeRange("K1:L3");
+            DataGrid.Worksheets["Печать"].MergeRange("K4:L4");
+            DataGrid.Worksheets["Печать"].Ranges["A1:L4"].Border.All = unvell.ReoGrid.RangeBorderStyle.BlackSolid;
+            DataGrid.Worksheets["Печать"].Ranges["A1:L4"].Style.HorizontalAlign = ReoGridHorAlign.Center;
+            DataGrid.Worksheets["Печать"].Ranges["A1:L4"].Style.VerticalAlign = ReoGridVerAlign.Middle;
+            DataGrid.Worksheets["Печать"].Ranges["A1:L4"].Style.TextWrap = TextWrapMode.WordBreak;
+            DataGrid.Worksheets["Печать"].Ranges["C1:L4"].Style.Bold = true;
+            DataGrid.Worksheets["Печать"].Cells["C1"].Data = "Бюджетное учреждение ветеринарии";
+            DataGrid.Worksheets["Печать"].Cells["C2"].Data = "«Бурятская республиканская научно-производственная ветеринарная лаборатория»";
+            DataGrid.Worksheets["Печать"].Cells["C3"].Data = "Испытательный центр";
+            DataGrid.Worksheets["Печать"].Cells["C4"].Data = "Отдел приема проб и выдачи результатов";
+            DataGrid.Worksheets["Печать"].Cells["K1"].Data = "Система менеджмента качества";
+            DataGrid.Worksheets["Печать"].Cells["K4"].Data = "03-08-03-01";
+            DataGrid.Worksheets["Печать"].ColumnHeaders[0].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[1].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[2].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[3].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[4].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[5].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[6].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[7].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[8].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[9].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[10].Width = 100;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[11].Width = 100;
+            BitmapImage bimage = new BitmapImage();
+            bimage.BeginInit();
+            bimage.UriSource = new Uri("Source\\Лого.jpg", UriKind.Relative);
+            bimage.EndInit();
+            var imageObj = new unvell.ReoGrid.Drawing.ImageObject(bimage) { Location = new unvell.ReoGrid.Graphics.Point(2, 2), Size = new unvell.ReoGrid.Graphics.Size(75, 75), };
+            DataGrid.Worksheets["Печать"].FloatingObjects.Add(imageObj);
+            #endregion
+        }            
         private void MainWindow_SelectionRangeChanged(object sender, unvell.ReoGrid.Events.RangeEventArgs e)
         {
 

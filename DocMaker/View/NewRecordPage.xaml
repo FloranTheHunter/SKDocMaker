@@ -34,8 +34,11 @@
                     <local:TextBoxWithLabel Title="Данные заказчика" MinWidth="200"/>
                     <local:TextBoxWithLabel Title="Код образцов" MinWidth="200"/>
                     <local:TextBoxWithLabel Title="Направление образцов" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Ответсвенное лицо" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Ответственное лицо" MinWidth="200"/>
                     <local:TextBoxWithLabel Title="Данные протокола" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Форма оплаты" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="ФЛ/ЮЛ" MinWidth="200"/>
+                    <local:TextBoxWithLabel Title="Статус оплаты протокола" MinWidth="200"/>
                 </StackPanel>
             </ScrollViewer>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"  Background="{DynamicResource FourthBrush}"/>
@@ -63,7 +66,7 @@
 
                     <TextBox x:Name="ExamResultBox" Style="{StaticResource ResourceKey=TextBox1}" Grid.Row="1" Margin="10" Background="{StaticResource PrimaryBrush}" BorderThickness="1" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
 
-                    <local:Btn Grid.Column="1" Style="{StaticResource ResourceKey= ImageButton}" Text="Добавить" FontSize="12" Background="Transparent" BorderBrush="Transparent" Orientation="False" Click="Btn_Click"/>
+                    <local:Btn Grid.Column="1" Style="{StaticResource ResourceKey= ImageButton}" Text="Добавить" Image="Resources/wrt.png" FontSize="12" Background="Transparent" BorderBrush="Transparent" Orientation="False" Click="Btn_Click"/>
                 </Grid>
 
                 <Border Grid.Row="1" BorderBrush="{StaticResource FourthBrush}" BorderThickness="1">
