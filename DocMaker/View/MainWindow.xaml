@@ -62,6 +62,9 @@
                     <Separator/>
                     <MenuItem Header="Выделить" Click="SetBorderItem_Click"/>
                     <MenuItem Header="Снять выделение" Click="UnSetBorderItem_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Копировать" Click="Copy_Click"/>
+                    <MenuItem Header="Вставить" Click="Paste_Click"/>
                 </ContextMenu>
             </rg:ReoGridControl.CellsContextMenu>
         </rg:ReoGridControl>
@@ -102,10 +105,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Background="White" MinHeight="20" BorderBrush="#FF424242" BorderThickness="1" HorizontalAlignment="Stretch"  Grid.Column="1" Margin="10">
-                <TextBlock x:Name="SelectionDataBox" TextWrapping="Wrap" Text="SampleText" Margin="1, 0"/>
+                <TextBlock x:Name="SelectionDataBox" TextWrapping="Wrap" Margin="1, 0"/>
             </Border>
             <Border Background="White" MinHeight="20" BorderBrush="#FF424242" BorderThickness="1" HorizontalAlignment="Stretch"  Grid.Column="0" Margin="10">
-                <TextBlock x:Name="SelectionRangeBox" TextWrapping="Wrap" Text="SampleText" Margin="1,0"/>
+                <TextBlock x:Name="SelectionRangeBox" TextWrapping="Wrap" Margin="1,0"/>
             </Border>
         </Grid>
     </Grid>

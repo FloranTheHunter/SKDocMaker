@@ -26,19 +26,19 @@
                     <local:TextBoxWithLabel x:Name="SCategory" Title="Категория проб" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="SGroup" Title="Группа пробы" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="ExamType" Title="Вид исследований" MinWidth="200"/>
-                    <local:TextBoxWithLabel x:Name="Date" Title="Дата поступления" MinWidth="200"/>
-                    <DatePicker Style="{StaticResource DateElement}" Text="Дата поступления"/>
-                    <local:TextBoxWithLabel Title="Наименование образца" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Количество проб" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Масса" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Данные заказчика" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Код образцов" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Направление образцов" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Ответственное лицо" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Данные протокола" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Форма оплаты" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="ФЛ/ЮЛ" MinWidth="200"/>
-                    <local:TextBoxWithLabel Title="Статус оплаты протокола" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="ExamNum" Title="Номер экспертизы" MinWidth="200"/>
+                    <DatePicker x:Name="Date" Style="{StaticResource DateElement}" Text="Дата поступления"/>
+                    <local:TextBoxWithLabel x:Name="Name" Title="Наименование образца" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="Count" Title="Количество проб" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="Weight" Title="Масса" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="CustomerData" Title="Данные заказчика" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="SampleCode" Title="Код образцов" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="SampleDestination" Title="Направление образцов" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="RelatedFace" Title="Ответственное лицо" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="ProtocolData" Title="Данные протокола" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="PaymentForm" Title="Форма оплаты" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="FLUL" Title="ФЛ/ЮЛ" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="PaymentState" Title="Статус оплаты протокола" MinWidth="200"/>
                 </StackPanel>
             </ScrollViewer>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"  Background="{DynamicResource FourthBrush}"/>
