@@ -76,7 +76,6 @@ namespace DocMaker
             #endregion
 
 
-
             DataGrid.Worksheets[0].Name = "Записи";
             DataGrid.Worksheets.Add(DataGrid.CreateWorksheet("Поступления"));
             DataGrid.Worksheets.Add(DataGrid.CreateWorksheet("Исследования"));
@@ -98,7 +97,7 @@ namespace DocMaker
             DataGrid.Worksheets[0].RowCount = 2;
             DataGrid.Worksheets[1].ColumnCount = 62;
             DataGrid.Worksheets[1].RowCount = 20;
-            DataGrid.Worksheets[2].ColumnCount = 15;
+            DataGrid.Worksheets[2].ColumnCount = 3;
             DataGrid.Worksheets[2].RowCount = 10;
             DataGrid.Worksheets[3].ColumnCount = 12;
             DataGrid.Worksheets[3].RowCount = 6;
@@ -107,19 +106,25 @@ namespace DocMaker
             #region List 1 Setup
             var namedrange = DataGrid.Worksheets[0].DefineNamedRange("Заголовок", "A1:V1");
             namedrange.Data = new object[]
-                { "Вид", "Цель", "Категория проб", "Группа пробы", "Вид исследований", "Номер экспертизы / протокола", "Дата поступления", "Наименование образца(пробы)",
-              "Кол - во проб", "Количество образцов(проб) масса" ,"ФИО Заказчика, адрес", "Код образцов(проб)", "Цель исследования(испытаний) и измерений", "Направление образцов(проб)",
-              "Ответственное лицо за испытания", "Результат исследования(испытания) и измерений, дата выдачи протокола испытания", "Номер протокола и дата выдачи", "Подпись", "Примечание", "Форма оплаты", "ФЛ/ЮЛ", "Статус оплаты"};
+                { "Вид", "Цель", "Категория проб", "Группа пробы", "Вид исследований", "Номер экспертизы / протокола", "Дата поступления",
+                    "Наименование образца(пробы)","Кол - во проб", "Количество образцов(проб) масса" ,"ФИО Заказчика, адрес", "Код образцов(проб)",
+                    "Цель исследования(испытаний) и измерений", "Направление образцов(проб)", "Ответственное лицо за испытания",
+                    "Результат исследования(испытания) и измерений, дата выдачи протокола испытания", "Номер протокола и дата выдачи", "Подпись", "Примечание",
+                    "ФЛ/ЮЛ", "ИНН", "Форма оплаты", "Статус оплаты"
+                };
 
             DataGrid.Worksheets[0].RowHeaders[0].Height = 100;
 
             DataGrid.Worksheets[0].ColumnHeaders["G"].Width = 100;
             DataGrid.Worksheets[0].ColumnHeaders["H"].Width = 100;
-            DataGrid.Worksheets[0].ColumnHeaders["F"].Width = 150;
+            DataGrid.Worksheets[0].ColumnHeaders["J"].Width = 100;
+            DataGrid.Worksheets[0].ColumnHeaders["F"].Width = 100;
+            DataGrid.Worksheets[0].ColumnHeaders["K"].Width = 150;
             DataGrid.Worksheets[0].ColumnHeaders["M"].Width = 150;
-            DataGrid.Worksheets[0].ColumnHeaders["P"].Width = 150;
+            DataGrid.Worksheets[0].ColumnHeaders["P"].Width = 170;
             DataGrid.Worksheets[0].ColumnHeaders["N"].Width = 150;
             DataGrid.Worksheets[0].ColumnHeaders["O"].Width = 100;
+            DataGrid.Worksheets[0].ColumnHeaders["Q"].Width = 150;
             DataGrid.Worksheets[0].ColumnHeaders["S"].Width = 150;
             DataGrid.Worksheets[0].Ranges["A1:V1"].Style.HorizontalAlign = ReoGridHorAlign.Center;
             DataGrid.Worksheets[0].Ranges["A1:V1"].Style.VerticalAlign = ReoGridVerAlign.Middle;
@@ -288,7 +293,7 @@ namespace DocMaker
             DataGrid.Worksheets["Печать"].ColumnHeaders[6].Width = 150;
             DataGrid.Worksheets["Печать"].ColumnHeaders[7].Width = 150;
             DataGrid.Worksheets["Печать"].ColumnHeaders[8].Width = 150;
-            DataGrid.Worksheets["Печать"].ColumnHeaders[9].Width = 150;
+            DataGrid.Worksheets["Печать"].ColumnHeaders[9].Width = 170;
             DataGrid.Worksheets["Печать"].ColumnHeaders[10].Width = 150;
             DataGrid.Worksheets["Печать"].ColumnHeaders[11].Width = 150;
 
@@ -343,6 +348,7 @@ namespace DocMaker
         #region Pages
         private static NewRecordPage _wndRecord;
         private static NewExaminePage _wndExamine;
+        private static Settings _wndSettings;
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -350,6 +356,7 @@ namespace DocMaker
             int count = 0;
             DataGrid.Worksheets[0].IterateCells(new RangePosition(2, 5, DataGrid.Worksheets[0].MaxContentRow + 1, 1), (row, col, cell) =>
             {
+
                 if (cell.Data != "" || cell.Data != null)
                     count++;
                 return true;
@@ -373,35 +380,59 @@ namespace DocMaker
 
         private void _wndRecord_AddNewEntryEventHandler(Data data)
         {
+            #region List1
             int startLocR = DataGrid.Worksheets[0].MaxContentRow + 1;
             int endlocR = DataGrid.Worksheets[0].MaxContentRow + data.RowCount + 1;
             int endlocC = DataGrid.Worksheets[0].MaxContentCol + 1;
             DataGrid.Worksheets[0].InsertRows(startLocR, data.RowCount);
+
+            for (int i = startLocR; i < endlocR; i++)
+            {
+                DataGrid.Worksheets[0].Ranges[i, 12, 1, 1].Data = data.exam[i - startLocR].Name;
+                DataGrid.Worksheets[0].Ranges[i, 15, 1, 1].Data = data.exam[i - startLocR].Result;
+            }
 
             for (int i = 0; i < 12; i++)
             {
                 DataGrid.Worksheets[0].MergeRange(startLocR, i, endlocR - startLocR, 1);
             }
 
-            for (int i = 13; i < 13 + 2; i++)
+            for (int i = 13; i < 15; i++)
             {
                 DataGrid.Worksheets[0].MergeRange(startLocR, i, endlocR - startLocR, 1);
             }
 
-            for (int i = 16; i < endlocC - 16; i++)
+            for (int i = 16; i < endlocC; i++)
             {
                 DataGrid.Worksheets[0].MergeRange(startLocR, i, endlocR - startLocR, 1);
             }
 
-            //DataGrid.Worksheets[0].MergeRange(startLocR, 13, endlocR - startLocR, 2);
-            //DataGrid.Worksheets[0].MergeRange(startLocR, 16, endlocR - startLocR, endlocC - 16);
+            DataGrid.Worksheets[0].Ranges[startLocR, 0, endlocR - startLocR, 1].Data = data.Type;
+            DataGrid.Worksheets[0].Ranges[startLocR, 1, endlocR - startLocR, 1].Data = data.Target;
+            DataGrid.Worksheets[0].Ranges[startLocR, 2, endlocR - startLocR, 1].Data = data.SCategory;
+            DataGrid.Worksheets[0].Ranges[startLocR, 3, endlocR - startLocR, 1].Data = data.SGroup;
+            DataGrid.Worksheets[0].Ranges[startLocR, 4, endlocR - startLocR, 1].Data = data.ExamType;
+            DataGrid.Worksheets[0].Ranges[startLocR, 5, endlocR - startLocR, 1].Data = data.ExamNum;
+            DataGrid.Worksheets[0].Ranges[startLocR, 6, endlocR - startLocR, 1].Data = data.Date;
+            DataGrid.Worksheets[0].Ranges[startLocR, 7, endlocR - startLocR, 1].Data = data.Name;
+            DataGrid.Worksheets[0].Ranges[startLocR, 8, endlocR - startLocR, 1].Data = data.Count;
+            DataGrid.Worksheets[0].Ranges[startLocR, 9, endlocR - startLocR, 1].Data = data.Weight;
+            DataGrid.Worksheets[0].Ranges[startLocR, 10, endlocR - startLocR, 1].Data = data.CustomerData;
+            //DataGrid.Worksheets[0].Ranges[startLocR, 11, endlocR - startLocR, 1].Data = data.CustomerINN;
+            DataGrid.Worksheets[0].Ranges[startLocR, 11, endlocR - startLocR, 1].Data = data.SampleCode;
+            DataGrid.Worksheets[0].Ranges[startLocR, 13, endlocR - startLocR, 1].Data = data.SampleDestination;
+            DataGrid.Worksheets[0].Ranges[startLocR, 14, endlocR - startLocR, 1].Data = data.RelatedFace;
+            DataGrid.Worksheets[0].Ranges[startLocR, 16, endlocR - startLocR, 1].Data = data.ProtocolData;
 
-
-            //DataGrid.Worksheets[0].UnmergeRange(startLocR, 12, endlocR, 12);
-            //DataGrid.Worksheets[0].UnmergeRange(startLocR, 14, endlocR, 14);
+            DataGrid.Worksheets[0].Ranges[startLocR, 19, endlocR - startLocR, 1].Data = data.FLUL;
+            DataGrid.Worksheets[0].Ranges[startLocR, 20, endlocR - startLocR, 1].Data = data.CustomerINN;
+            DataGrid.Worksheets[0].Ranges[startLocR, 21, endlocR - startLocR, 1].Data = data.PaymentForm;
+            DataGrid.Worksheets[0].Ranges[startLocR, 22, endlocR - startLocR, 1].Data = data.PaymentState;
 
             DataGrid.Worksheets[0].Ranges[startLocR, 0, endlocR, endlocC].Style.HorizontalAlign = ReoGridHorAlign.Center;
             DataGrid.Worksheets[0].Ranges[startLocR, 0, endlocR, endlocC].Style.TextWrap = TextWrapMode.WordBreak;
+            DataGrid.Worksheets[0].Ranges[startLocR, 0, endlocR, endlocC].Style.VerticalAlign = ReoGridVerAlign.Middle;
+            DataGrid.Worksheets[0].SetRangeDataFormat(startLocR, 0, endlocR, endlocC, unvell.ReoGrid.DataFormat.CellDataFormatFlag.Text);
 
             int count = 0;
             DataGrid.Worksheets[0].IterateCells(new RangePosition(2, 5, DataGrid.Worksheets[0].MaxContentRow + 1, 1), (row, col, cell) =>
@@ -413,6 +444,50 @@ namespace DocMaker
 
             if (_wndRecord != null)
                 _wndRecord.EntryNum = count;
+            #endregion
+
+            #region PrintList
+            if (data.Type.ToUpper() == "ИЦ")
+            {
+                startLocR = DataGrid.Worksheets[3].MaxContentRow + 1;
+                endlocR = DataGrid.Worksheets[3].MaxContentRow + data.RowCount + 1;
+                endlocC = DataGrid.Worksheets[3].MaxContentCol + 1;
+                DataGrid.Worksheets[3].InsertRows(startLocR, data.RowCount);
+
+
+                for (int i = startLocR; i < endlocR; i++)
+                {
+                    DataGrid.Worksheets[3].Ranges[i, 6, 1, 1].Data = data.exam[i - startLocR].Name;
+                    DataGrid.Worksheets[3].Ranges[i, 9, 1, 1].Data = data.exam[i - startLocR].Result;
+                }
+
+
+                DataGrid.Worksheets[3].Ranges[startLocR, 0, endlocR - startLocR, 1].Data = data.ExamNum;
+                DataGrid.Worksheets[3].Ranges[startLocR, 1, endlocR - startLocR, 1].Data = data.Date;
+                DataGrid.Worksheets[3].Ranges[startLocR, 2, endlocR - startLocR, 1].Data = data.Name;
+                DataGrid.Worksheets[3].Ranges[startLocR, 3, endlocR - startLocR, 1].Data = data.Count;
+                DataGrid.Worksheets[3].Ranges[startLocR, 4, endlocR - startLocR, 1].Data = data.CustomerData;
+                DataGrid.Worksheets[3].Ranges[startLocR, 5, endlocR - startLocR, 1].Data = data.SampleCode;
+                DataGrid.Worksheets[3].Ranges[startLocR, 7, endlocR - startLocR, 1].Data = data.SampleDestination;
+                DataGrid.Worksheets[3].Ranges[startLocR, 8, endlocR - startLocR, 1].Data = data.RelatedFace;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    DataGrid.Worksheets[3].MergeRange(startLocR, i, endlocR - startLocR, 1);
+                }
+
+                DataGrid.Worksheets[3].MergeRange(startLocR, 7, endlocR - startLocR, 1);
+                DataGrid.Worksheets[3].MergeRange(startLocR, 8, endlocR - startLocR, 1);
+                DataGrid.Worksheets[3].MergeRange(startLocR, 10, endlocR - startLocR, 1);
+                DataGrid.Worksheets[3].MergeRange(startLocR, 11, endlocR - startLocR, 1);
+
+
+                DataGrid.Worksheets[3].Ranges[startLocR, 0, endlocR, endlocC].Style.HorizontalAlign = ReoGridHorAlign.Center;
+                DataGrid.Worksheets[3].Ranges[startLocR, 0, endlocR, endlocC].Style.TextWrap = TextWrapMode.WordBreak;
+                DataGrid.Worksheets[3].Ranges[startLocR, 0, endlocR, endlocC].Style.VerticalAlign = ReoGridVerAlign.Middle;
+                DataGrid.Worksheets[3].SetRangeDataFormat(startLocR, 0, endlocR, endlocC, unvell.ReoGrid.DataFormat.CellDataFormatFlag.Text);
+            }
+            #endregion
         }
 
         private void Btn1_Click(object sender, RoutedEventArgs e)
@@ -436,6 +511,23 @@ namespace DocMaker
         {
             _wndExamine = null;
         }
+
+        private void _wndSettings_WindowClosed()
+        {
+            _wndSettings = null;
+        }
+
+        private void Btn_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (_wndSettings == null)
+            {
+                _wndSettings = new Settings();
+                _wndSettings.WindowClosed += _wndSettings_WindowClosed;
+                _wndSettings.ShowInTaskbar = false;
+                _wndSettings.Owner = this;
+                _wndSettings.Show();
+            }
+        }
         #endregion
 
         #region Context Events
@@ -445,8 +537,8 @@ namespace DocMaker
 
             int dif = (int)DataGrid.CurrentWorksheet.SelectionRange.EndPos.Row - (int)DataGrid.CurrentWorksheet.SelectionRange.StartPos.Row;
 
+            DataGrid.CurrentWorksheet.DeleteRows((int)DataGrid.CurrentWorksheet.SelectionRange.StartPos.Row, dif + 1);
 
-            DataGrid.DoAction(new RemoveRowsAction((int)DataGrid.CurrentWorksheet.SelectionRange.StartPos.Row, dif + 1));
         }
 
         private void InsertTopItem_Click(object sender, RoutedEventArgs e)
@@ -587,5 +679,6 @@ namespace DocMaker
         }
 
         #endregion
+
     }
 }

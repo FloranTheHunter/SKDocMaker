@@ -2,9 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:localSpace="clr-namespace:DocMaker.View">
 
-    <Style TargetType="{x:Type localSpace:TextBoxWithLabel}" BasedOn="{StaticResource ResourceKey={x:Type TextBox}}">
+    <Style TargetType="{x:Type localSpace:TextBoxWithLabel}" BasedOn="{StaticResource ResourceKey={x:Type TextBox} }">
         <Style.Setters>
             <Setter Property="Background" Value="White"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="FontSize" Value=" 14"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type localSpace:TextBoxWithLabel}">
@@ -12,11 +15,11 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <TextBlock  FontSize="14" Text="{TemplateBinding Title}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Margin="5,0"/>
-                                <TextBox x:Name="block" FontSize="14" Grid.Row="1" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}" Text="{TemplateBinding Text}" 
-                                     TextWrapping="Wrap" MaxWidth="{TemplateBinding MaxWidth}" MaxHeight="{TemplateBinding MaxHeight}" AcceptsReturn="True" BorderThickness="0"/>
+                                <ScrollViewer x:Name="PART_ContentHost" FontSize="14" Grid.Row="1" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}"  
+                                MaxWidth="{TemplateBinding MaxWidth}" MaxHeight="{TemplateBinding MaxHeight}" Background="White" />
                             </Grid>
                         </Border>
                     </ControlTemplate>

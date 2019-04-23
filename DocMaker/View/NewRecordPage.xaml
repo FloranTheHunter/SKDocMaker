@@ -21,24 +21,33 @@
             </Grid.ColumnDefinitions>
             <ScrollViewer Grid.Column="0" Visibility="Visible" HorizontalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch">
                 <StackPanel>
-                    <local:TextBoxWithLabel x:Name="Type" Title="Вид" MinWidth="200"/>
+                    <local:MyCombobox Style="{StaticResource ComboBoxWhiteStyle}" x:Name="Type" Title="Вид" MinWidth="200" IsEditable="True">
+                        <local:MyCombobox.Items>
+                            <ComboBoxItem Content="ВП"/>
+                            <ComboBoxItem Content="ИЦ" IsSelected="True"/>
+                        </local:MyCombobox.Items>
+                    </local:MyCombobox>
                     <local:TextBoxWithLabel x:Name="Target" Title="Цель" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="SCategory" Title="Категория проб" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="SGroup" Title="Группа пробы" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="ExamType" Title="Вид исследований" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="ExamNum" Title="Номер экспертизы" MinWidth="200"/>
-                    <DatePicker x:Name="Date" Style="{StaticResource DateElement}" Text="Дата поступления"/>
+                    <DatePicker x:Name="Date" Style="{StaticResource DatePickerStyle1}" />
                     <local:TextBoxWithLabel x:Name="Name" Title="Наименование образца" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="Count" Title="Количество проб" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="Weight" Title="Масса" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="CustomerData" Title="Данные заказчика" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="CustomerINN" Title="ИНН" MinWidth="200" MaxLength="12" PreviewTextInput="CustomerINN_PreviewTextInput" DataObject.Pasting="CustomerINN_Pasting"/>
                     <local:TextBoxWithLabel x:Name="SampleCode" Title="Код образцов" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="SampleDestination" Title="Направление образцов" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="RelatedFace" Title="Ответственное лицо" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="ProtocolData" Title="Данные протокола" MinWidth="200"/>
-                    <local:TextBoxWithLabel x:Name="PaymentForm" Title="Форма оплаты" MinWidth="200"/>
                     <local:TextBoxWithLabel x:Name="FLUL" Title="ФЛ/ЮЛ" MinWidth="200"/>
-                    <local:TextBoxWithLabel x:Name="PaymentState" Title="Статус оплаты протокола" MinWidth="200"/>
+                    <local:TextBoxWithLabel x:Name="PaymentForm" Title="Форма оплаты" MinWidth="200"/>
+                    <local:MyCombobox Style="{StaticResource ComboBoxWhiteStyle}" x:Name="PaymentState" Title="Статус оплаты протокола" MinWidth="200">
+                        <ComboBoxItem Content="Оплачено" IsSelected="True"/>
+                        <ComboBoxItem Content="Не оплачено"/>
+                    </local:MyCombobox>
                 </StackPanel>
             </ScrollViewer>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3"  Background="{DynamicResource FourthBrush}"/>
@@ -50,8 +59,8 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="5*"/>
@@ -66,7 +75,7 @@
 
                     <TextBox x:Name="ExamResultBox" Style="{StaticResource ResourceKey=TextBox1}" Grid.Row="1" Margin="10" Background="{StaticResource PrimaryBrush}" BorderThickness="1" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
 
-                    <local:Btn Grid.Column="1" Style="{StaticResource ResourceKey= ImageButton}" Text="Добавить" Image="Resources/wrt.png" FontSize="12" Background="Transparent" BorderBrush="Transparent" Orientation="False" Click="Btn_Click"/>
+                    <Button Grid.Column="1" FontSize="12" Background="White" Click="Btn_Click" Style="{StaticResource VectorPlus}" VerticalAlignment="Center" Height="30" Width="30"/>
                 </Grid>
 
                 <Border Grid.Row="1" BorderBrush="{StaticResource FourthBrush}" BorderThickness="1">

@@ -64,6 +64,7 @@
     <Compile Include="Logic\SingletonController.cs" />
     <Compile Include="Logic\Data.cs" />
     <Compile Include="Logic\Model.cs" />
+    <Compile Include="View\Combobox.cs" />
     <Compile Include="View\ExamData.cs" />
     <Compile Include="View\NewExaminePage.xaml.cs">
       <DependentUpon>NewExaminePage.xaml</DependentUpon>
@@ -72,6 +73,9 @@
       <DependentUpon>NewRecordPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Rwdt.cs" />
+    <Compile Include="View\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TextBoxWithLabel.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +97,10 @@
     <Page Include="View\NewRecordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Themes\Btns.xaml">
       <SubType>Designer</SubType>

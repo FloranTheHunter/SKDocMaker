@@ -4,33 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DocMaker.View
 {
-    public class TextBoxWithLabel : TextBox
+    class MyCombobox : ComboBox
     {
-        static TextBoxWithLabel()
+        static MyCombobox()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBoxWithLabel), new FrameworkPropertyMetadata(typeof(TextBoxWithLabel)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MyCombobox), new FrameworkPropertyMetadata(typeof(MyCombobox)));
         }
+
 
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
         "Title",
         typeof(string),
-        typeof(TextBoxWithLabel),
+        typeof(MyCombobox),
         new UIPropertyMetadata(null));
-
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
+
+
     }
 }

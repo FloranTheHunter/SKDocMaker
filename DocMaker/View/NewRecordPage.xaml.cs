@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,26 +13,39 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+public struct ExamInfo
+{
+    public string Name;         // Цель исследования
+    public string Result;       // Результат исследования
+}
+
 public struct Data
 {
     public int RowCount;
-    public string Target,
-           SCategory,
-           SGroup,
-           ExamType,
-           ExamNum,
-           Date,
-           Name,
-           Count,
-           Weight,
-           CustomerData,
-           SampleCode,
-           SampleDestination,
-           RelatedFace,
-           ProtocolData,
-           PaymentForm,
-           FLUL,
-           PaymentState;
+    public string
+           Type,               // Вид
+           Target,             // Цель
+           SCategory,          // Категория проб
+           SGroup,             // Группа пробы
+           ExamType,           // Вид исследований 
+           ExamNum,            // Номер экспертизы
+           Date,               // Дата поступления
+           Name,               // Наименование образца
+           Count,              // Кол-во проб
+           Weight,             // Масса образцов
+           CustomerData,       // ФИО и адрес заказчика
+           SampleCode,         // Код образцов
+           SampleDestination,  // Направление образцов
+           RelatedFace,        // Ответственное лицо за испытания
+           ProtocolData,       // Номер протокола и дата выдачи
+                               // Подпись
+                               // Примечание
+           CustomerINN,        // ИНН
+           FLUL,               // ФЛ/ЮЛ
+           PaymentForm,        // Способ оплаты
+           PaymentState;       // Состояние оплаты
+
+    public ExamInfo[] exam;    // Экзамены
 }
 
 namespace DocMaker.View
@@ -81,34 +95,104 @@ namespace DocMaker.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            // Type,               // Вид !
+            //Target,             // Цель !
+            //SCategory,          // Категория проб !
+            //SGroup,             // Группа пробы !
+            //ExamType,           // Вид исследований !
+            //ExamNum,            // Номер экспертизы !
+            //Date,               // Дата поступления !
+            //Name,               // Наименование образца !
+            //Count,              // Кол-во проб !
+            //Weight,             // Масса образцов !
+            //CustomerData,       // ФИО и адрес заказчика !
+            //SampleCode,         // Код образцов !
+            //SampleDestination,  // Направление образцов !
+            //RelatedFace,        // Ответственное лицо за испытания !
+            //ProtocolData,       // Номер протокола и дата выдачи !
+            //// Подпись
+            //// Примечание
+            //CustomerINN,        // ИНН !
+            //FLUL,               // ФЛ/ЮЛ !
+            //PaymentForm,        // Способ оплаты !
+            //PaymentState;       // Состояние оплаты !
+
             Data data = new Data();
 
-            if (ExamsData.Children.Count >= 1)
-                data.RowCount = ExamsData.Children.Count;
-            else
-                data.RowCount = 1;
 
+            data.Type = Type.Text;
             data.Target = Target.Text;
             data.SCategory = SCategory.Text;
             data.SGroup = SGroup.Text;
             data.ExamType = ExamType.Text;
             data.ExamNum = ExamNum.Text;
-            data.Date = Date.DisplayDate.ToString();
-            data.Name = ExamType.Name;
-            data.Count = Weight.Text;
+            data.Date = Date.Text.ToString();
+            data.Name = Name.Text;
+            data.Count = Count.Text;
+            data.Weight = Weight.Text;
             data.CustomerData = CustomerData.Text;
-            data.SampleCode = ExamType.Text;
+            data.SampleCode = SampleCode.Text;
             data.SampleDestination = SampleDestination.Text;
             data.RelatedFace = RelatedFace.Text;
             data.ProtocolData = ProtocolData.Text;
-            data.PaymentForm = PaymentForm.Text;
+            data.CustomerINN = CustomerINN.Text;
             data.FLUL = FLUL.Text;
+            data.PaymentForm = PaymentForm.Text;
             data.PaymentState = PaymentState.Text;
 
+            if (ExamsData.Children.Count == 0)
+            {
+                data.exam[0].Name = "-";
+                data.exam[0].Result = "-";
+                data.RowCount = 1;
+            }
+            else
+            {
+                data.RowCount = ExamsData.Children.Count;
+                data.exam = new ExamInfo[data.RowCount];
+
+                for (int i = 0; i < ExamsData.Children.Count; i++)
+                {
+                    data.exam[i].Name = ((ExamData)ExamsData.Children[i]).ExamPoint;
+                    data.exam[i].Result = ((ExamData)ExamsData.Children[i]).Result;
+                }
+            }
             AddNewEntryEventHandler(data);
         }
 
         public delegate void AddNewEntryEvent(Data data);
         public event AddNewEntryEvent AddNewEntryEventHandler;
+
+
+        private static readonly Regex _regex = new Regex("[^0-9]+");
+
+        private bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+
+        }
+
+        private void CustomerINN_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+
+        private void CustomerINN_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
     }
 }

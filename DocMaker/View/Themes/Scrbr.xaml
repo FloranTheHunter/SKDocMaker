@@ -2,21 +2,34 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <Style x:Key="DateElement" TargetType="DatePicker">
+    <Style x:Key="DateElement" TargetType="DatePicker" BasedOn="{StaticResource ResourceKey={x:Type DatePicker}}">
         <Style.Setters>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="DatePicker">
                         <Border BorderThickness="1" BorderBrush="Black"  Background="{TemplateBinding Background}">
-                            <Grid>
+                            <Grid Name="PART_Root">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto" MinHeight="20"/>
+                                    <RowDefinition Height="*" MinHeight="20"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="{TemplateBinding Text}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Margin="5,0"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Дата исследования" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Margin="5,0" FontSize="14"/>
                                 <DatePicker Grid.Row="1" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}"
                                      MaxWidth="{TemplateBinding MaxWidth}" MaxHeight="{TemplateBinding MaxHeight}"  BorderThickness="0"/>
+
+                                <!--<Button Name="PART_button" Grid.Column="1" Grid.RowSpan="2">
+                                    <Path Data="M7,12H9V14H7V12M21,6V20A2,2 0 0,1 19,22H5C3.89,22 3,21.1 3,20V6A2,2 0 0,1 5,4H6V2H8V4H16V2H18V4H19A2,2 0 0,1 21,6M5,8H19V6H5V8M19,20V10H5V20H19M15,14V12H17V14H15M11,14V12H13V14H11M7,16H9V18H7V16M15,18V16H17V18H15M11,18V16H13V18H11Z" 
+                                          Fill="Black" />
+                                </Button>
+                                <DatePickerTextBox Name="PART_TextBox" Grid.Row="1" FontSize="14" HorizontalAlignment="Center"/>
+                                <Popup Name="PART_Popup" Width="100" Height="100">
+                                    <Calendar/>
+                                </Popup>-->
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -69,6 +82,112 @@
         </Setter>
     </Style>-->
 
+
+    <Style x:Key="DatePickerStyle1" TargetType="{x:Type DatePicker}">
+        <Setter Property="Foreground" Value="#FF333333"/>
+        <Setter Property="IsTodayHighlighted" Value="True"/>
+        <Setter Property="SelectedDateFormat" Value="Short"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint=".5,0" StartPoint=".5,1">
+                    <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                    <GradientStop Color="#FF718597" Offset="0.375"/>
+                    <GradientStop Color="#FF617584" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DatePicker}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    Background="{TemplateBinding Background}" 
+                    Padding="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" 
+                                        Storyboard.TargetProperty="Opacity" 
+                                        Storyboard.TargetName="PART_DisabledVisual"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Grid.Resources>
+                                <SolidColorBrush x:Key="DisabledBrush" 
+                                Color="#A5FFFFFF"/>
+                                <ControlTemplate x:Key="DropDownButtonTemplate" 
+                                TargetType="{x:Type Button}">
+                                    <Grid>
+                                        <Border Background="White" >
+                                            <Path x:Name="Icon" Data="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z" Fill="{StaticResource FourthBrush}" Stretch="UniformToFill"/>
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Fill" TargetName="Icon" Value="#99ff99"/>
+                                        </Trigger>                                                 
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="PART_Button" Grid.Column="1" Foreground="{TemplateBinding Foreground}" 
+                                    Focusable="False" HorizontalAlignment="Center" Margin="3,0,0,0" Template="{StaticResource DropDownButtonTemplate}" VerticalAlignment="Center" 
+                                    Grid.RowSpan="2"/>
+                            
+                            <TextBlock Text="Дата" FontSize="14"/>
+                            
+                            <DatePickerTextBox x:Name="PART_TextBox" Grid.Column="0"
+                            Focusable="{TemplateBinding Focusable}" 
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Grid.Row="1" 
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" FontSize="{TemplateBinding FontSize}"/>
+                            
+                            <Grid x:Name="PART_DisabledVisual" 
+                            Grid.ColumnSpan="2" Grid.Column="0" 
+                            IsHitTestVisible="False" Opacity="0" 
+                            Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.Column="0" Fill="#A5FFFFFF" 
+
+                                RadiusY="1" Grid.Row="0" RadiusX="1"/>
+                                <Rectangle Grid.Column="1" Fill="#A5FFFFFF" 
+
+                                Height="18" Margin="3,0,3,0" 
+
+                                RadiusY="1" Grid.Row="0" 
+
+                                RadiusX="1" Width="19"/>
+                                <Popup x:Name="PART_Popup" AllowsTransparency="
+                                True" Placement="Bottom" 
+                                PlacementTarget="{Binding ElementName=PART_TextBox}"
+                                StaysOpen="False"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#e3e9ef" />
     <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#fff" />
     <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#888" />
@@ -86,7 +205,7 @@
               CornerRadius="0" BorderThickness="1" 
               Background="{DynamicResource PrimaryBrush}">
                 <TextBlock Text="Тип исследования" Margin="0, -14, 0, 0" FontSize="14" Background="White"/>
-            </Border>             
+            </Border>
             <Border Grid.Column="1" Margin="1, 1, 1, 1" BorderBrush="#444" Name="ButtonBorder"
               CornerRadius="0, 0, 0, 0" BorderThickness="0, 0, 0, 0" 
               Background="White" 
@@ -185,5 +304,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>
